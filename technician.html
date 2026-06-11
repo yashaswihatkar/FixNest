@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Book Technician - FixNest</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+body{
+background:#eef7f0;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+}
+
+.container{
+background:white;
+padding:30px;
+width:420px;
+border-radius:14px;
+box-shadow:0 12px 30px rgba(0,0,0,0.1);
+}
+
+h2{
+color:#1b5e20;
+margin-bottom:20px;
+text-align:center;
+}
+
+label{
+font-size:13px;
+color:#444;
+font-weight:500;
+}
+
+input, select, textarea{
+width:100%;
+padding:10px;
+margin:6px 0 14px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+input[readonly]{
+background:#f5f5f5;
+}
+
+button{
+width:100%;
+padding:12px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:15px;
+}
+
+button:hover{
+background:#1b5e20;
+}
+
+.success-screen{
+display:none;
+text-align:center;
+}
+
+.success-screen h2{
+color:#2e7d32;
+}
+
+.back{
+margin-top:15px;
+cursor:pointer;
+color:#2e7d32;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="formSection">
+
+<h2>Book Technician</h2>
+
+<form onsubmit="submitForm(event)">
+
+<label>Full Name</label>
+<input type="text" id="name" required>
+
+<label>Address</label>
+<input type="text" id="address" required>
+
+<label>Product</label>
+<input type="text" id="product" readonly>
+
+<label>Brand</label>
+<select id="brand" required>
+<option value="">Select Brand</option>
+</select>
+
+<label>Product Age</label>
+<select id="years" required>
+<option value="">Select Age</option>
+<option>Less than 1 year</option>
+<option>1-2 years</option>
+<option>2-5 years</option>
+<option>More than 5 years</option>
+</select>
+
+<label>Issue Description</label>
+<textarea id="issue" required></textarea>
+
+<label>Preferred Date</label>
+<input type="date" id="date" required>
+
+<label>Preferred Time</label>
+<select id="time" required>
+<option value="">Select Time</option>
+<option>Morning</option>
+<option>Afternoon</option>
+<option>Evening</option>
+</select>
+
+<button type="submit">Submit Request</button>
+
+</form>
+
+</div>
+
+<div class="success-screen" id="successScreen">
+
+<h2>✅ Request Submitted!</h2>
+
+<p>Your request has been received.<br>We will assign a technician shortly.</p>
+
+<div class="back" onclick="goHome()">⬅ Back to Products</div>
+
+</div>
+
+</div>
+
+<script>
+
+// ✅ GET PRODUCT FROM LOCAL STORAGE
+const productName = localStorage.getItem("selectedProduct");
+
+// BRAND DATA (MATCH EXACT NAMES)
+const brandData = {
+"Table Fan": ["Usha", "Bajaj", "Havells"],
+"Electric Iron": ["Philips", "Bajaj", "Usha"],
+"Mixer Grinder": ["Prestige", "Bajaj", "Philips"],
+"Electric Kettle": ["Prestige", "Pigeon", "Bajaj"],
+"Toaster": ["Philips", "Morphy Richards"],
+"Rice Cooker": ["Prestige", "Pigeon", "Bajaj"],
+"Extension Board": ["Havells", "Anchor"],
+"Vacuum Cleaner": ["IFB", "Philips"],
+"LED Lamp": ["Syska", "Philips"],
+"Hand Blender": ["Philips", "Bajaj"]
+};
+
+// AUTO LOAD
+window.onload = function(){
+
+let productInput = document.getElementById("product");
+
+// set product
+productInput.value = productName || "";
+
+// load brands
+loadBrands(productName);
+
+};
+
+// LOAD BRANDS
+function loadBrands(product){
+
+let brand = document.getElementById("brand");
+
+brand.innerHTML = '<option value="">Select Brand</option>';
+
+if(brandData[product]){
+brandData[product].forEach(b=>{
+let option = document.createElement("option");
+option.value = b;
+option.text = b;
+brand.appendChild(option);
+});
+}
+
+}
+
+// NAV
+function goHome(){
+window.location.href="products.html";
+}
+
+</script>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyCgKI-RxIdn2_LYhhBvsIx7etRYrXG4rig",
+authDomain: "ai-customer-support-assi-5af0d.firebaseapp.com",
+projectId: "ai-customer-support-assi-5af0d",
+storageBucket: "ai-customer-support-assi-5af0d.firebasestorage.app",
+messagingSenderId: "765224752225",
+appId: "1:765224752225:web:8c749af972c9f37cedc620"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+// SUBMIT
+window.submitForm = async function(e){
+e.preventDefault();
+
+let user = auth.currentUser;
+
+if(!user){
+alert("Please login first!");
+window.location.href="loginpage.html";
+return;
+}
+
+await addDoc(collection(db, "technicianRequests"), {
+
+name: document.getElementById("name").value,
+email: user.email,
+address: document.getElementById("address").value,
+product: document.getElementById("product").value,
+brand: document.getElementById("brand").value,
+years: document.getElementById("years").value,
+issue: document.getElementById("issue").value,
+preferredDate: document.getElementById("date").value,
+preferredTime: document.getElementById("time").value,
+status: "Pending",
+createdAt: new Date()
+
+});
+
+// clear storage (optional)
+localStorage.removeItem("selectedProduct");
+
+// UI
+document.getElementById("formSection").style.display = "none";
+document.getElementById("successScreen").style.display = "block";
+
+};
+
+</script>
+
+</body>
+</html>

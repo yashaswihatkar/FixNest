@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>FixNest - Login</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+body{
+background:#e8f5e9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.container{
+background:white;
+padding:35px;
+width:360px;
+border-radius:16px;
+box-shadow:0 12px 30px rgba(0,0,0,0.1);
+text-align:center;
+animation:fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+.brand{
+margin-bottom:25px;
+}
+
+.logo-circle{
+width:55px;
+height:55px;
+background:#c8e6c9;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+font-weight:bold;
+color:#1b5e20;
+font-size:20px;
+}
+
+.brand h1{
+color:#1b5e20;
+margin-top:10px;
+font-size:24px;
+}
+
+.brand p{
+font-size:13px;
+color:#666;
+}
+
+button{
+width:100%;
+padding:11px;
+margin-top:12px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:15px;
+}
+
+button:hover{
+background:#1b5e20;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:12px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+.error{
+color:#d32f2f;
+font-size:12px;
+text-align:left;
+margin-top:4px;
+display:none;
+}
+
+.hidden{
+display:none;
+}
+
+.back{
+margin-top:15px;
+color:#2e7d32;
+cursor:pointer;
+font-size:14px;
+}
+
+.success-popup{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#2e7d32;
+color:white;
+padding:12px 25px;
+border-radius:8px;
+display:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="brand">
+<div class="logo-circle">AI</div>
+<h1>FixNest</h1>
+<p>AI-Powered Customer Support</p>
+</div>
+
+<!-- MAIN -->
+
+<div id="mainButtons">
+<button onclick="showLogin()">Sign In</button>
+<button onclick="showSignup()">Sign Up</button>
+<div class="back" onclick="goHome()">⬅ Back</div>
+</div>
+
+<!-- LOGIN -->
+
+<div id="loginForm" class="hidden">
+
+<input type="email" id="loginEmail" placeholder="Email">
+<div class="error" id="loginEmailError">Invalid email</div>
+
+<input type="password" id="loginPassword" placeholder="Password">
+<div class="error" id="loginPasswordError">Invalid email or password</div>
+
+<button onclick="login()">Login</button>
+<div class="back" onclick="back()">⬅ Back</div>
+
+</div>
+
+<!-- SIGNUP -->
+
+<div id="signupForm" class="hidden">
+
+<input type="email" id="signupEmail" placeholder="Email">
+<div class="error" id="signupEmailError">Invalid email</div>
+
+<input type="password" id="signupPassword" placeholder="Password (min 6 chars)">
+<div class="error" id="signupPasswordError">Min 6 characters required</div>
+
+<input type="password" id="confirmPassword" placeholder="Confirm Password">
+<div class="error" id="confirmPasswordError">Passwords do not match</div>
+
+<button onclick="signup()">Sign Up</button>
+<div class="back" onclick="back()">⬅ Back</div>
+
+</div>
+
+</div>
+
+<div class="success-popup" id="successPopup">
+Welcome back!
+</div>
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCgKI-RxIdn2_LYhhBvsIx7etRYrXG4rig",
+  authDomain: "ai-customer-support-assi-5af0d.firebaseapp.com",
+  projectId: "ai-customer-support-assi-5af0d",
+  storageBucket: "ai-customer-support-assi-5af0d.firebasestorage.app",
+  messagingSenderId: "765224752225",
+  appId: "1:765224752225:web:8c749af972c9f37cedc620"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* UI */
+
+window.showLogin = ()=>{
+mainButtons.style.display="none";
+loginForm.style.display="block";
+};
+
+window.showSignup = ()=>{
+mainButtons.style.display="none";
+signupForm.style.display="block";
+};
+
+window.back = ()=>{
+mainButtons.style.display="block";
+loginForm.style.display="none";
+signupForm.style.display="none";
+};
+
+/* VALIDATION */
+
+function validEmail(email){
+return /\S+@\S+\.\S+/.test(email);
+}
+
+/* SIGNUP */
+
+window.signup = ()=>{
+
+let email = signupEmail.value;
+let password = signupPassword.value;
+let confirm = confirmPassword.value;
+
+let ok = true;
+
+if(!validEmail(email)){
+signupEmailError.style.display="block"; ok=false;
+}else signupEmailError.style.display="none";
+
+if(password.length < 6){
+signupPasswordError.style.display="block"; ok=false;
+}else signupPasswordError.style.display="none";
+
+if(password !== confirm){
+confirmPasswordError.style.display="block"; ok=false;
+}else confirmPasswordError.style.display="none";
+
+if(!ok) return;
+
+createUserWithEmailAndPassword(auth,email,password)
+.then(()=>{
+alert("Signup successful!");
+back();
+})
+.catch(err=>{
+if(err.code==="auth/email-already-in-use"){
+alert("Already a user, please login.");
+}else alert(err.message);
+});
+
+};
+
+/* LOGIN */
+
+window.login = ()=>{
+
+let email = loginEmail.value;
+let password = loginPassword.value;
+
+signInWithEmailAndPassword(auth,email,password)
+.then(()=>{
+successPopup.style.display="block";
+
+setTimeout(()=>{
+window.location.href="products.html";
+},1500);
+})
+.catch(()=>{
+loginPasswordError.style.display="block";
+});
+
+};
+
+/* NAV */
+
+window.goHome = ()=>{
+window.location.href="home.html";
+};
+
+</script>
+
+</body>
+</html>

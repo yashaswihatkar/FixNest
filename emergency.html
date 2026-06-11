@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Emergency Contacts - FixNest</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+body{
+background:#e8f5e9;
+padding:30px;
+}
+
+/* TITLE */
+
+h1{
+text-align:center;
+color:#1b5e20;
+margin-bottom:30px;
+}
+
+/* CONTAINER */
+
+.container{
+max-width:900px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 25px rgba(46,125,50,0.2);
+}
+
+/* TEXT */
+
+.name{
+font-size:18px;
+font-weight:600;
+color:#2e7d32;
+}
+
+.role{
+font-size:13px;
+color:#777;
+margin-bottom:10px;
+}
+
+.info{
+font-size:14px;
+color:#444;
+margin:5px 0;
+}
+
+/* BUTTON */
+
+.call-btn{
+margin-top:10px;
+display:inline-block;
+padding:8px 12px;
+background:#43a047;
+color:white;
+border-radius:6px;
+text-decoration:none;
+}
+
+.call-btn:hover{
+background:#1b5e20;
+}
+
+/* BACK */
+
+.back{
+margin-top:30px;
+text-align:center;
+cursor:pointer;
+color:#2e7d32;
+font-weight:500;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🚨 Emergency Support Contacts</h1>
+
+<div class="container">
+
+<div class="card">
+<div class="name">Rahul Sharma</div>
+<div class="role">Senior Technician</div>
+<div class="info">📞 9876543210</div>
+<div class="info">📍 Panchavati</div>
+
+</div>
+
+<div class="card">
+<div class="name">Priya Mehta</div>
+<div class="role">Electrical Specialist</div>
+<div class="info">📞 9823456789</div>
+<div class="info">📍 Meri-Mhasrul</div>
+
+</div>
+
+<div class="card">
+<div class="name">Amit Verma</div>
+<div class="role">Appliance Expert</div>
+<div class="info">📞 9898989898</div>
+<div class="info">📍 Gangapur Road</div>
+
+</div>
+
+<div class="card">
+<div class="name">Sneha Kulkarni</div>
+<div class="role">Support Engineer</div>
+<div class="info">📞 9765432109</div>
+<div class="info">📍 Nashik Road</div>
+
+</div>
+
+</div>
+
+<div class="back" onclick="goBack()">⬅ Back to Products</div>
+
+<script>
+
+function goBack(){
+window.location.href="Products.html";
+}
+
+</script>
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="AFu3-1WsaJGVoqn_MRx33";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+
+</body>
+</html>

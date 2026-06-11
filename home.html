@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FixNest</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+body{
+height:100vh;
+}
+
+/* HERO BACKGROUND */
+
+.hero{
+height:100vh;
+background: url("images/homeimg.png") no-repeat center center/cover;
+display:flex;
+flex-direction:column;
+position:relative;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+}
+
+/* SAME COLOR AS HEADING */
+
+.logo,
+.nav-links a,
+.login{
+color:#1b5e20;
+font-weight:600;
+}
+
+/* LEFT */
+
+.left{
+display:flex;
+align-items:center;
+gap:30px;
+}
+
+/* LOGO */
+
+.logo{
+font-size:22px;
+cursor:pointer;
+}
+
+/* NAV LINKS */
+
+.nav-links{
+display:flex;
+gap:25px;
+position:relative;
+}
+
+.nav-links a{
+text-decoration:none;
+font-size:16px;
+cursor:pointer;
+}
+
+/* DROPDOWN */
+
+.dropdown{
+position:relative;
+}
+
+.dropdown-content{
+display:none;
+position:absolute;
+top:30px;
+background:white;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+border-radius:8px;
+padding:10px 0;
+min-width:180px;
+}
+
+.dropdown-content a{
+display:block;
+padding:10px 15px;
+color:#333;
+text-decoration:none;
+}
+
+.dropdown-content a:hover{
+background:#f1f1f1;
+}
+
+/* SHOW DROPDOWN */
+
+.dropdown:hover .dropdown-content{
+display:block;
+}
+
+/* LOGIN */
+
+.login{
+cursor:pointer;
+font-size:20px;
+}
+
+/* CONTENT */
+
+.content{
+margin-top:140px;
+margin-left:80px;
+max-width:550px;
+color:#1b5e20;
+}
+
+/* BIGGER TEXT */
+
+.content h1{
+font-size:52px;
+font-weight:700;
+}
+
+.content p{
+margin-top:20px;
+font-size:18px;
+color:#444;
+line-height:1.6;
+}
+
+/* BUTTON */
+
+.content button{
+margin-top:25px;
+padding:14px 30px;
+border:none;
+background:#43a047;
+color:white;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.content button:hover{
+background:#2e7d32;
+}
+
+/* CHAT BUTTON */
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="left">
+
+<div class="logo" onclick="goHome()">
+🤖 FixNest
+</div>
+
+<div class="nav-links">
+
+<a onclick="goAbout()">About</a>
+
+<!-- PRODUCTS DROPDOWN -->
+
+<div class="dropdown">
+<a>Products ▾</a>
+
+<div class="dropdown-content">
+<a onclick="checkLoginAndRedirect('vacuum.html')">Vacuum Cleaner</a>
+<a onclick="checkLoginAndRedirect('ricecooker.html')">Rice Cooker</a>
+<a onclick="checkLoginAndRedirect('extension.html')">Extension Board</a>
+<a onclick="checkLoginAndRedirect('led.html')">LED Lamp</a>
+<a onclick="checkLoginAndRedirect('blender.html')">Hand Blender</a>
+<a onclick="checkLoginAndRedirect('toaster.html')">Toaster</a>
+<a onclick="checkLoginAndRedirect('iron.html')">Electric Iron</a>
+<a onclick="checkLoginAndRedirect('fan.html')">Table Fan</a>
+<a onclick="checkLoginAndRedirect('kettle.html')">Electric Kettle</a>
+<a onclick="checkLoginAndRedirect('mixer.html')">Mixer Grinder</a>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="login" id="userSection">
+👤
+</div>
+
+</div>
+
+<!-- HERO CONTENT -->
+
+<div class="content">
+
+<h1>AI-Powered Customer Support</h1>
+
+<p>
+Solve product issues instantly using intelligent automation.
+Fast, simple and user-friendly support system.
+</p>
+
+<button onclick="checkLoginAndRedirect('products.html')">
+Explore Products
+</button>
+
+</div>
+
+</div>
+
+<!-- CHAT BUTTON -->
+
+
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCgKI-RxIdn2_LYhhBvsIx7etRYrXG4rig",
+  authDomain: "ai-customer-support-assi-5af0d.firebaseapp.com",
+  projectId: "ai-customer-support-assi-5af0d",
+  storageBucket: "ai-customer-support-assi-5af0d.firebasestorage.app",
+  messagingSenderId: "765224752225",
+  appId: "1:765224752225:web:abf3298538144a2fedc620"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* 🔐 LOGIN CHECK */
+
+window.checkLoginAndRedirect = function(page){
+
+localStorage.setItem("redirectPage", page);
+
+onAuthStateChanged(auth, (user) => {
+
+if(user){
+    window.location.href = page;
+} else {
+    window.location.href = "loginpage.html";
+}
+
+});
+
+};
+
+/* NAVIGATION */
+
+window.goHome = ()=>{
+window.location.href="home.html";
+};
+
+window.goAbout = ()=>{
+window.location.href="about.html";
+};
+
+window.goLogin = ()=>{
+window.location.href="loginpage.html";
+};
+
+/* 🔄 SHOW LOGIN OR LOGOUT */
+
+onAuthStateChanged(auth, (user) => {
+
+let userSection = document.getElementById("userSection");
+
+if(user){
+    userSection.innerHTML = `
+    <span onclick="logout()" style="cursor:pointer;">Logout ⏻</span>
+    `;
+} else {
+    userSection.innerHTML = `
+    <span onclick="goLogin()" style="cursor:pointer;">👤 Login</span>
+    `;
+}
+
+});
+
+/* 🚪 LOGOUT */
+
+window.logout = function(){
+signOut(auth).then(()=>{
+    alert("Logged out successfully!");
+    window.location.href = "loginpage.html";
+});
+};
+
+</script>
+
+
+</body>
+</html>
+
