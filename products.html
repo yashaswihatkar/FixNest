@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FixNest - Products</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+body{
+background:#eef7f0;
+}
+
+/* NAVBAR */
+
+.navbar{
+background:#1f4d3a;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:30px;
+}
+
+.logo{
+font-size:22px;
+font-weight:600;
+cursor:pointer;
+}
+
+.nav-links{
+display:flex;
+gap:20px;
+}
+
+.nav-links a{
+color:white;
+text-decoration:none;
+font-size:15px;
+transition:0.3s;
+}
+
+.nav-links a:hover{
+opacity:0.8;
+}
+
+.search-bar{
+display:flex;
+gap:10px;
+}
+
+.search-bar input{
+padding:8px;
+border-radius:6px;
+border:none;
+width:250px;
+}
+
+.search-bar button{
+padding:8px 12px;
+border:none;
+background:#2e7d32;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* GRID */
+
+.container{
+padding:30px 50px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+/* CARD */
+
+.card{
+background:white;
+border-radius:12px;
+padding:15px;
+border:1px solid #ddd;
+transition:0.3s;
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card img{
+width:100%;
+height:160px;
+object-fit:contain;
+}
+
+.title{
+margin-top:10px;
+font-size:15px;
+}
+
+.price{
+color:#1b5e20;
+font-weight:bold;
+margin-top:5px;
+}
+
+.btn{
+margin-top:10px;
+width:100%;
+padding:8px;
+background:#1b5e20;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* NO RESULT */
+
+#noResult{
+text-align:center;
+margin-top:20px;
+display:none;
+font-size:16px;
+color:#555;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="left">
+
+<div class="logo" onclick="goHome()">🤖 FixNest</div>
+
+<div class="nav-links">
+<a href="home.html">Home</a>
+<a href="about.html">About</a>
+<a href="emergency.html">Emergency contact</a>
+</div>
+
+</div>
+
+<div class="search-bar">
+<input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProduct()">
+<button onclick="searchProduct()">Search</button>
+</div>
+
+</div>
+
+<!-- PRODUCTS -->
+
+<div class="container">
+
+<div class="card" data-page="vacuum.html" onclick="openPage(this)">
+<img src="images/vacuum.jpg.jpg">
+<div class="title product-name">Vacuum Cleaner</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+<div class="card" data-page="ricecooker.html" onclick="openPage(this)">
+<img src="images/ricecooker.jpg.jpg">
+<div class="title product-name">Rice Cooker</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+<div class="card" data-page="extension.html" onclick="openPage(this)">
+<img src="images/extension.jpg.jpg">
+<div class="title product-name">Extension Board</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+<div class="card" data-page="led.html" onclick="openPage(this)">
+<img src="images/led.jpg.jpg">
+<div class="title product-name">LED Lamp</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+<div class="card" data-page="blender.html" onclick="openPage(this)">
+<img src="images/blender.jpg.jpg">
+<div class="title product-name">Hand Blender</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+<div class="card" data-page="toaster.html" onclick="openPage(this)">
+<img src="images/toaster.jpg.jpg">
+<div class="title product-name">Toaster</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+<div class="card" data-page="iron.html" onclick="openPage(this)">
+<img src="images/iron.jpg.jpg">
+<div class="title product-name">Electric Iron</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+<div class="card" data-page="fan.html" onclick="openPage(this)">
+<img src="images/fan.jpg.jpg">
+<div class="title product-name">Table Fan</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+<div class="card" data-page="kettle.html" onclick="openPage(this)">
+<img src="images/kettle.jpg.jpg">
+<div class="title product-name">Electric Kettle</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+<div class="card" data-page="mixer.html" onclick="openPage(this)">
+<img src="images/mixer.jpg.jpg">
+<div class="title product-name">Mixer Grinder</div>
+
+<button class="btn" onclick="event.stopPropagation(); openPage(this.parentElement)">Get Support</button>
+</div>
+
+</div>
+
+<!-- NO RESULT -->
+
+<p id="noResult">No product found</p>
+
+<!-- SCRIPT -->
+
+<script>
+
+function goHome(){
+window.location.href="home.html";
+}
+
+function searchProduct(){
+let input = document.getElementById("searchInput").value.toLowerCase();
+let cards = document.getElementsByClassName("card");
+
+let found = false;
+
+for(let i=0;i<cards.length;i++){
+let name = cards[i].getElementsByClassName("product-name")[0].innerText.toLowerCase();
+
+if(name.includes(input)){
+cards[i].style.display="block";
+found = true;
+}else{
+cards[i].style.display="none";
+}
+}
+
+document.getElementById("noResult").style.display = found ? "none" : "block";
+}
+
+function openPage(element){
+let page = element.getAttribute("data-page");
+window.location.href = page;
+}
+
+</script>
+
+<!-- CHATBOT -->
+
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="AFu3-1WsaJGVoqn_MRx33";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+
+</body>
+</html>

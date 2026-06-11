@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Table Fan</title>
+
+<style>
+
+body{
+font-family:"Segoe UI",sans-serif;
+background:#eef7f0;
+padding:20px;
+}
+
+/* CONTAINER */
+
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* PRODUCT */
+
+img{
+width:200px;
+display:block;
+margin:auto;
+}
+
+h2{
+text-align:center;
+color:#2e7d32;
+}
+
+.price{
+text-align:center;
+font-weight:bold;
+color:#1b5e20;
+margin:10px 0;
+}
+
+/* ACCORDION */
+
+.item{
+border-bottom:1px solid #ddd;
+padding:12px 0;
+cursor:pointer;
+display:flex;
+justify-content:space-between;
+}
+
+.answer{
+display:none;
+padding:10px 0;
+color:#555;
+font-size:14px;
+}
+
+/* BUTTONS */
+
+.btn{
+margin-top:10px;
+width:100%;
+padding:10px;
+background:#2e7d32;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.btn:hover{
+background:#256b28;
+}
+
+.ai-btn{
+background:#1b5e20;
+}
+
+/* FORM */
+
+.form{
+display:none;
+margin-top:20px;
+animation:fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(10px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+input{
+width:100%;
+padding:8px;
+margin:8px 0;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.success{
+color:green;
+margin-top:10px;
+display:none;
+font-weight:500;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>LED Lamp</h2>
+<img src="images/led.jpg.jpg">
+
+
+
+<p style="text-align:center;">
+Energy-efficient lighting solution that provides bright illumination while consuming less electricity and lasting longer.</p>
+
+<!-- FAQ -->
+
+<div class="item" onclick="toggle(this)">
+<span>Why is it flickering?</span>
+<span>▼</span>
+</div>
+<div class="answer">Voltage fluctuation.</div>
+
+<div class="item" onclick="toggle(this)">
+<span>Why is it not turning on?</span>
+<span>▼</span>
+</div>
+<div class="answer">Power or driver issue.</div>
+
+<div class="item" onclick="toggle(this)">
+<span>Why is light dim?</span>
+<span>▼</span>
+</div>
+<div class="answer">LED degradation over time.</div>
+
+<!-- AI BUTTON -->
+
+
+<!-- TECHNICIAN BUTTON -->
+
+<button class="btn" onclick="goBook()">🛠 Book Technician</button>
+
+
+<button class="btn" onclick="goBack()">⬅ Back</button>
+
+</div>
+
+<script>
+
+/* FAQ TOGGLE */
+
+function toggle(el){
+let ans = el.nextElementSibling;
+ans.style.display = ans.style.display === "block" ? "none" : "block";
+}
+
+/* CHATBOT */
+
+
+
+/* TOGGLE FORM */
+
+
+
+/* BACK */
+function goBook(){
+localStorage.setItem("selectedProduct", "LED Lamp");
+window.location.href = "technician.html";
+}
+function goBack(){
+window.location.href="products.html";
+}
+
+</script>
+<script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="AFu3-1WsaJGVoqn_MRx33";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+
+</body>
+</html>
